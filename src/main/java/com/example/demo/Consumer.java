@@ -13,4 +13,11 @@ public class Consumer {
                 "User " + refundRequest.getUserId() + " purchased book "
                         + refundRequest.getBook().toString()));
     }
+
+    @KafkaListener(topics = "order_requests", groupId = "group_id")
+    public void consume(Order order) throws IOException {
+        System.out.println(String.format("#### -> Notify user by email: -> %s",
+                "User " + order.getUserId() + " purchased book "
+                        + order.getAmount()));
+    }
 }
